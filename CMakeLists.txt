@@ -54,13 +54,14 @@ find_package(Eigen3 3.1.0 REQUIRED)
 
 # Generate config.h
 set(G2O_CXX_COMPILER "${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER}")
-configure_file(config.h.in ${g2o_SOURCE_DIR}/config.h)
+configure_file(config.h.in ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
 # Include directories
 include_directories(
   ${g2o_SOURCE_DIR}/core
   ${g2o_SOURCE_DIR}/types
   ${g2o_SOURCE_DIR}/stuff
+  ${CMAKE_CURRENT_BINARY_DIR}
   ${EIGEN3_INCLUDE_DIR}
 )
 
@@ -156,6 +157,7 @@ add_library(g2o ${G2O_LIB_TYPE}
 
 target_include_directories(g2o PUBLIC
   $<BUILD_INTERFACE:${g2o_SOURCE_DIR}>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
   $<INSTALL_INTERFACE:include>
   ${EIGEN3_INCLUDE_DIR}
 )
